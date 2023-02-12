@@ -1,0 +1,54 @@
+jar包的使用方法：
+	第一步：安装jdk1.8。
+		链接：https://www.123pan.com/s/C3d9-Ku9l
+		配置环境变量：右击"计算机"，点击"属性"，点击"环境变量"，在path中添加：C:\应用\jdk1.8.0_162\bin;
+		配置环境变量：右击"计算机"，点击"属性"，点击"环境变量"，新增名字为JRE_HOME的环境变量，值为jdk1.8的主目录：C:\应用\jdk1.8.0_162(没有分号)
+	第二步：启动springboot项目。
+		启动方法：
+			win键+R，回车，打开DOS窗口。
+			输入：java -Dfile.encoding=utf-8 -jar jar包完整路径.jar，回车。
+	第三步：关闭springboot项目。
+		关闭方法：
+			win键+R，回车，打开DOS窗口。
+			输入：netstat -ano|findstr 端口号，查看端口号对应的进程号(最后一列的数字)。
+			输入：taskkill -pid 进程号 -f，就可以关闭了。
+war包的使用方法：
+	第一步：修改pom.xml文件将默认的jar方式改为war。
+		<!--默认为jar方式-->
+		<!--<packaging>jar</packaging>-->
+		<!--改为war方式-->
+		<packaging>war</packaging>
+	第二步：修改pom.xml配置文件,添加外部Tomcat依赖配置。
+		删除spring-boot-starter-web中的Tomcat：
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		添加依赖。
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-tomcat</artifactId>
+				<scope>provided</scope>
+			</dependency>
+	第三步：继承SpringBootServletInitializer，实现configure方法。
+		@SpringBootApplication
+		public class EmploymentApplication extends SpringBootServletInitializer {
+			public static void main(String[] args) {
+				SpringApplication.run(EmploymentApplication.class, args);
+			}
+			@Override
+			protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+				return super.configure(builder);
+			}
+		}
+	第四步：点击右侧"maven"选项卡。
+		双击"生命周期"子选项卡中的"clean"，用于清除springboot项目中的依赖。
+		点击"插件"子选项卡中的"war"插件，再双击"war"插件中的"war:exploded"，用于构建war包。
+		再双击"生命周期"子选项卡中的"package"，用于将war包打包到"target"目录下(target文件夹在构建war包后会出现)。
+	第五步：启动和关闭方法与运行Java web项目的方法相同。

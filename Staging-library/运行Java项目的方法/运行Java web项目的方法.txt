@@ -1,0 +1,35 @@
+第一步：安装jdk1.8。
+	链接：https://www.123pan.com/s/C3d9-Ku9l
+	配置环境变量：右击"计算机"，点击"属性"，点击"环境变量"，在path中添加：C:\应用\jdk1.8.0_162\bin;
+	配置环境变量：右击"计算机"，点击"属性"，点击"环境变量"，新增名字为JRE_HOME的环境变量，值为jdk1.8的主目录：C:\应用\jdk1.8.0_162(没有分号)
+
+第二步：安装Tomcat9.0。
+	链接：https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.71/bin/apache-tomcat-9.0.71-windows-x64.zip
+	配置环境变量：右击"计算机"，点击"属性"，点击"环境变量"，在path中添加：C:\应用\apache-tomcat-9.0.56\bin;
+	配置catalina_home：新增名字为CATALINA_HOME的环境变量，值为tomcat的主目录：C:\应用\apache-tomcat-9.0.56(没有分号)
+
+第三步：将java web项目打成war包。
+
+第四步：将war包放到Tomcat的webapps文件夹下。
+
+第五步：下载mysql。(如有需要)
+	链接：https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.36-winx64.zip
+	配置环境变量：右击"计算机"，点击"属性"，点击"环境变量"，在path中添加：%MYSQL_HOME%\bin;
+	启动mysql服务：
+		执行命令：net start mysql
+		解决启动服务失败(报错)：mysqld -install
+		登录MySQL(由于没有设置密码，所以直接回车)：mysql -u root -p
+		查询用户密码：select host,user,authentication_string from mysql.user;
+		设置(或修改)root用户密码：update mysql.user set authentication_string=password("123456") where user ="root";
+					  flush privileges;
+		退出mysql：exit;
+
+第六步：启动Tomcat。
+	启动方法：
+		开始菜单输入：cmd，鼠标右键用管理员权限打开。
+		输入：startup.bat，(.bat可省略)回车。
+
+第七步：关闭Tomcat。
+	关闭方法：
+		开始菜单输入：cmd，鼠标右键用管理员权限打开。
+		输入：shutdown.bat，(.bat不可省略)回车。
